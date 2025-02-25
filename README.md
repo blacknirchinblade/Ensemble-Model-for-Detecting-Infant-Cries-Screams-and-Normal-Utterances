@@ -260,11 +260,19 @@ weighted avg       0.96      0.96      0.96       335
 
 
 
-### **Confusion Matrices**  
-![Weighted Ensemble Confusion Matrix](outputs/weighted_confusion_matrix.png)  
+### **Confusion Matrices and ROCs**  
 
-### **ROC Curves**  
-![Weighted Ensemble ROC](outputs/weighted_roc_curve.png)  
+| ![Ensemble Model Confusion Matrix](infant_audio_classification/outputs/Ensemble%20Model%20Confusion%20Matrix.png) | ![Ensemble Model ROC Curve](infant_audio_classification/outputs/Ensemble%20Model%20ROC%20Curve_roc_curve.png) |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| ![Majority Voting Ensemble Confusion Matrix](infant_audio_classification/outputs/Majority%20Voting%20Ensemble%20Confusion%20Matrix.png) | ![Majority Voting Ensemble ROC Curve](infant_audio_classification/outputs/Majority%20Voting%20Ensemble%20ROC%20Curve_roc_curve.png) |
+| ![Platt Scaling Ensemble Confusion Matrix](infant_audio_classification/outputs/Platt%20Scaling%20Ensemble%20Confusion%20Matrix.png) | ![Platt Scaling Ensemble ROC Curve](infant_audio_classification/outputs/Platt%20Scaling%20Ensemble%20ROC%20Curve_roc_curve.png) |
+| ![Stacking Ensemble Confusion Matrix](infant_audio_classification/outputs/Stacking%20Ensemble%20Confusion%20Matrix.png) | ![Stacking Ensemble ROC Curve](infant_audio_classification/outputs/Stacking%20Ensemble%20ROC%20Curve_roc_curve.png) |
+| ![Wav2Vec2 Confusion Matrix](infant_audio_classification/outputs/Wav2Vec2%20Confusion%20Matrix.png) | ![Wav2Vec2 ROC Curve](infant_audio_classification/outputs/Wav2Vec2%20ROC%20Curve_roc_curve.png) |
+| ![XGBoost Confusion Matrix](infant_audio_classification/outputs/XGBoost%20Confusion%20Matrix.png) | ![XGBoost ROC Curve](infant_audio_classification/outputs/XGBoost_roc_curve.png) |
+
+
+ 
+ 
 
 ---
 
@@ -278,5 +286,6 @@ weighted avg       0.96      0.96      0.96       335
 ---
 
 ## 📚 License  
-This project is licensed under the **MIT License**.  
-See the [LICENSE](LICENSE) file for details.  
+Ganesh Islavath
+MTech Ai
+IISC Banglore
