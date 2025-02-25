@@ -1,186 +1,282 @@
-# Ensemble-Model-for-Detecting-Infant-Cries-Screams-and-Normal-Utterances
-# Audio Classification Project
+# Infant Audio Classification  
 
-This project focuses on classifying audio segments into three categories:
-- **Cry**: Infant crying sounds.
-- **Scream**: Human screaming sounds.
-- **Noncry**: Background noise, speech, or other sounds.
-
-We utilize a combination of **YAMNet**, **Wav2Vec2**, and ensemble models to improve classification accuracy. The project includes **data preprocessing, feature extraction, model training, evaluation, and real-time inference capabilities**.
+This project classifies infant audio into three categories: **Cry, Scream, and Noncry** using **Wav2Vec2**, **YAMNet**, and **XGBoost**. It employs multiple **ensemble learning techniques** for improved accuracy and supports **real-time inference**.  
 
 ---
 
-## Features
-### Data Processing:
-- Audio trimming, silence removal, and resampling to 16kHz.
-- Data augmentation (time-stretching, pitch-shifting, noise addition).
-
-### Model Training:
-- Fine-tuning **Wav2Vec2** for classification.
-- Training **XGBoost** classifier using **YAMNet** embeddings.
-- Implementing **ensemble models** combining multiple predictions.
-
-### Ensemble Learning:
-- **Platt Scaling**: Logistic regression-based calibration.
-- **Stacking**: Meta-classifier combining Wav2Vec2 and XGBoost.
-- **Majority Voting**: Selects the most common prediction.
-- **Weighted Ensemble**: Wav2Vec2 (70\%) + XGBoost (30\%).
-
-### Real-Time Inference:
-- Live classification using microphone input.
-- Processes 5-15 second audio chunks.
-
-### GUI Interface:
-- Tkinter-based GUI for selecting files, recording, and batch processing.
+## 📌 Table of Contents  
+- [Overview](#overview)  
+- [Project Structure](#project-structure)  
+- [Installation](#installation)  
+- [Usage](#usage)  
+- [Models Used](#models-used)  
+- [Evaluation Metrics](#evaluation-metrics)  
+- [Ensemble Learning Methods](#ensemble-learning-methods)  
+- [Results](#results)  
+- [Future Work](#future-work)  
+- [License](#license)  
 
 ---
 
-## Installation
-### Prerequisites:
-- **Python 3.8+**
-- **GPU** (Recommended for faster training and inference)
+## 🔹 Overview  
+The project aims to classify **infant cries, screams, and other background noises** to assist in medical diagnostics and childcare.  
 
-### Steps:
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your-username/audio-classification.git
-   cd audio-classification
-   ```
-
-2. **Create a Virtual Environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Windows: venv\Scripts\activate
-   ```
-
-3. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Download and Organize the Dataset:**
-   Structure your dataset as follows:
-   ```
-   data/raw_audio/Dataset/
-   ├── experimental/
-   │   ├── cry/
-   │   └── scream/
-   └── control/
-       └── noncry/
-   ```
-
-5. **Run Preprocessing:**
-   ```bash
-   python audiopreprocessor.py
-   ```
-
-6. **Extract Features:**
-   ```bash
-   python feature_extractor.py
-   ```
-
-7. **Train the Models:**
-   ```bash
-   python train.py
-   ```
+👉 **Preprocessing**: Augementation, silence trimming, resampling  
+👉 **Feature Extraction**: YAMNet and Wav2Vec2  
+👉 **Machine Learning**: XGBoost on YAMNet features  
+👉 **Deep Learning**: Fine-tuned Wav2Vec2 model  
+👉 **Ensemble Learning**: Combining multiple models for accuracy  
+👉 **Real-time Inference**: Microphone-based classification  
+👉 **GUI Interface**: Interactive Tkinter-based UI  
 
 ---
 
-## Usage
-### Real-Time Inference (GUI):
-Run the GUI for real-time audio classification:
+## 📝 Project Structure  
+```
+Infant_Audio_Classification/
+│── data/                   # Raw and processed audio data  
+│── models/                 # Saved models  
+│   │── ensemble/           # Trained ensemble models  
+│   │   │── majority_voting_ensemble.pkl  
+│   │   │── platt_scaling_ensemble.pkl  
+│   │   │── stacking_ensemble.pkl  
+│   │   │── weighted_ensemble.pkl  
+│   │── wav2vec2_finetuned/ # Fine-tuned Wav2Vec2  
+│   │── xgboost_model.pkl   # Trained XGBoost model  
+│── notebooks/              # Jupyter notebooks  
+│── outputs/                # Evaluation results (ROC, Confusion Matrices)  
+│── src/                    # Source code  
+│   │── preprocessing/      # Data preprocessing scripts  
+│   │── feature_extraction/ # Feature extraction scripts  
+│   │── training/           # Model training scripts  
+│   │── inference/          # Inference & real-time prediction  
+│── README.md               # Project documentation  
+│── train.py                # Model training script  
+│── inference.py            # Real-time inference script  
+│── evaluate.py             # Model evaluation script  
+│── requirements.txt        # Dependencies  
+```
+
+---
+
+## 🛠️ Installation  
+
+### Prerequisites  
+- Python **3.8+**  
+- **GPU Recommended** for training  
+
+### Steps  
+Clone the repository:  
 ```bash
-python inference.py
+git clone https://github.com/your-username/audio-classification.git
+cd audio-classification
 ```
-
-#### GUI Features:
-- **Choose File**: Select a .wav file for classification.
-- **Record Audio**: Capture and classify audio using a microphone.
-- **Batch Process Folder**: Process multiple audio files in a directory.
-
-### Command-Line Inference:
-You can also use the inference script programmatically:
-```python
-from inference import AudioInference
-
-inferencer = AudioInference()
-
-# Predict from a file
-result = inferencer.predict_single("path/to/audio.wav")
-print(result)
-
-# Real-time inference
-audio_chunk = ...  # Load or record a 5-15 second audio chunk
-result = inferencer.real_time_inference(audio_chunk)
-print(result)
+Create a virtual environment:  
+```bash
+python -m venv venv  
+source venv/bin/activate  # Windows: venv\Scripts\activate  
 ```
-
----
-
-## File Structure
+Install dependencies:  
+```bash
+pip install -r requirements.txt  
 ```
-audio-classification/
-├── data/
-│   ├── raw_audio/          # Raw audio dataset
-│   ├── processed/          # Processed audio files
-│   └── features/           # Extracted features (YAMNet, Wav2Vec2)
-├── models/                 # Saved models (XGBoost, Wav2Vec2, Ensembles)
-├── outputs/                # Evaluation outputs (ROC curves, confusion matrices)
-├── src/
-│   ├── training/           # Training scripts and dataset class
-│   └── inference/          # Inference scripts
-├── audiopreprocessor.py    # Audio preprocessing script
-├── feature_extractor.py    # Feature extraction script
-├── train.py                # Model training script
-├── evaluate.py             # Model evaluation script
-├── inference.py            # Real-time inference and GUI
-├── requirements.txt        # Python dependencies
-└── README.md               # This file
+Prepare the dataset:  
+```bash
+mkdir -p data/raw_audio/Dataset
+```
+Place raw audio files in:  
+```
+data/raw_audio/Dataset/  
+├── experimental/  
+│   ├── cry/  
+│   ├── scream/  
+└── control/  
+    ├── noncry/  
+```
+Run preprocessing:  
+```bash
+python src/preprocessing/audiopreprocessor.py  
+```
+Extract features:  
+```bash
+python src/feature_extraction/feature_extractor.py  
+```
+Train the models:  
+```bash
+python train.py  
 ```
 
 ---
 
-## Results
-### Performance Metrics
-| Model           | Accuracy | Precision | Recall | F1-Score |
-|----------------|----------|------------|------------|------------|
-| **XGBoost**     | X%       | X%         | X%         | X%         |
-| **Wav2Vec2**    | X%       | X%         | X%         | X%         |
-| **Stacking**    | X%       | X%         | X%         | X%         |
-| **Weighted**    | X%       | X%         | X%         | X%         |
-| **Voting**      | X%       | X%         | X%         | X%         |
+## 🚀 Usage  
 
-### ROC Curves
-![XGBoost ROC](outputs/XGBoost_ROC_Curve.png)
-![Wav2Vec2 ROC](outputs/Wav2Vec2_ROC_Curve.png)
-![Ensemble ROC](outputs/ensemble_roc_curve.png)
-
-### Confusion Matrices
-![XGBoost Confusion Matrix](outputs/XGBoost_Confusion_Matrix.png)
-![Wav2Vec2 Confusion Matrix](outputs/Wav2Vec2_Confusion_Matrix.png)
-![Ensemble Confusion Matrix](outputs/ensemble_confusion_matrix.png)
-
----
-
-## Contributing
-Contributions are welcome! Follow these steps:
-1. **Fork the Repository.**
-2. **Create a New Branch:**
-   ```bash
-   git checkout -b feature-branch
-   ```
-3. **Commit Changes:**
-   ```bash
-   git commit -m "Add new feature"
-   ```
-4. **Push to the Branch:**
-   ```bash
-   git push origin feature-branch
-   ```
-5. **Open a Pull Request.**
+### **1. Single File Inference**  
+```bash
+python inference.py --file path/to/audio.wav  
+```
+### **2. Batch Processing**  
+```bash
+python inference.py --folder path/to/audio/folder  
+```
+### **3. Real-Time Inference**  
+```bash
+python inference.py --realtime  
+```
+### **4. GUI-Based Inference**  
+```bash
+python inference.py --gui  
+```
 
 ---
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## 📊 Models Used  
+### **1. Wav2Vec2**  
+- Transformer-based model, fine-tuned for classification.  
 
+### **2. XGBoost**  
+- Trained on **YAMNet features** extracted from audio.  
+
+### **3. Ensemble Learning**  
+- Combines multiple models to enhance accuracy.  
+
+---
+
+## 📊 Evaluation Metrics  
+- **Accuracy**  
+- **Precision**  
+- **Recall**  
+- **F1-score**  
+- **Confusion Matrix**  
+- **ROC-AUC Curve**  
+
+---
+
+## 🤖 Ensemble Learning Methods  
+### **1. Weighted Ensemble (Used for Final Inference)**  
+- Combines **Wav2Vec2 (70%)** and **XGBoost (30%)** for final predictions.  
+
+### **2. Stacking Ensemble**  
+- Uses a **Logistic Regression** meta-classifier for combination.  
+
+### **3. Majority Voting**  
+- Predicts the most frequently chosen class.  
+
+### **4. Platt Scaling**  
+- Uses **logistic regression calibration** for probability adjustment.  
+
+---
+
+## 📊 Results 
+✅ XGBoost model and test data loaded.
+🎯 XGBoost Test Accuracy: 0.8713
+📙 Classification Report (XGBoost):
+               precision    recall  f1-score   support
+
+         cry       0.89      0.86      0.87       125
+      scream       0.80      0.89      0.84       112
+      noncry       0.94      0.87      0.90        97
+
+    accuracy                           0.87       334
+   macro avg       0.88      0.87      0.87       334
+weighted avg       0.88      0.87      0.87       334
+
+📊 Confusion Matrix saved at: outputs\XGBoost Confusion Matrix.png
+📊 ROC Curve saved at: outputs\XGBoost_roc_curve.png
+✅ Wav2Vec2 model loaded.
+🎯 Wav2Vec2 Test Accuracy: 0.8358
+📙 Classification Report (Wav2Vec2):
+               precision    recall  f1-score   support
+
+         cry       0.88      0.84      0.86       118
+      scream       0.79      0.85      0.82       112
+      noncry       0.85      0.82      0.83       105
+
+    accuracy                           0.84       335
+   macro avg       0.84      0.84      0.84       335
+weighted avg       0.84      0.84      0.84       335
+
+📊 Confusion Matrix saved at: outputs\Wav2Vec2 Confusion Matrix.png
+📊 ROC Curve saved at: outputs\Wav2Vec2 ROC Curve_roc_curve.png
+✅ weighted ensemble Model Saved at: models\ensemble\weighted ensemble.pkl
+🎯 Ensemble Model Test Accuracy: 0.9373
+📙 Classification Report (Ensemble Model):
+               precision    recall  f1-score   support
+
+         cry       0.98      0.93      0.96       118
+      scream       0.90      0.95      0.92       112
+      noncry       0.93      0.93      0.93       105
+
+    accuracy                           0.94       335
+   macro avg       0.94      0.94      0.94       335
+weighted avg       0.94      0.94      0.94       335
+
+📊 Confusion Matrix saved at: outputs\Ensemble Model Confusion Matrix.png
+📊 ROC Curve saved at: outputs\Ensemble Model ROC Curve_roc_curve.png
+✅ stacking_ensemble Model Saved at: models\ensemble\stacking_ensemble.pkl
+🎯 Stacking Ensemble Test Accuracy: 0.9612
+📙 Classification Report (Stacking Ensemble):
+               precision    recall  f1-score   support
+
+         cry       0.97      0.99      0.98       118
+      scream       0.96      0.95      0.95       112
+      noncry       0.94      0.94      0.94       105
+
+    accuracy                           0.96       335
+   macro avg       0.96      0.96      0.96       335
+weighted avg       0.96      0.96      0.96       335
+
+📊 Confusion Matrix saved at: outputs\Stacking Ensemble Confusion Matrix.png
+📊 ROC Curve saved at: outputs\Stacking Ensemble ROC Curve_roc_curve.png
+✅ majority_voting_ensemble Model Saved at: models\ensemble\majority_voting_ensemble.pkl
+🎯 Majority Voting Ensemble Test Accuracy: 0.8955
+📙 Classification Report (Majority Voting Ensemble):
+               precision    recall  f1-score   support
+
+         cry       0.88      1.00      0.94       118
+      scream       0.85      0.89      0.87       112
+      noncry       0.98      0.78      0.87       105
+
+    accuracy                           0.90       335
+   macro avg       0.90      0.89      0.89       335
+weighted avg       0.90      0.90      0.89       335
+
+📊 Confusion Matrix saved at: outputs\Majority Voting Ensemble Confusion Matrix.png
+📊 ROC Curve saved at: outputs\Majority Voting Ensemble ROC Curve_roc_curve.png
+✅ platt_scaling_ensemble Model Saved at: models\ensemble\platt_scaling_ensemble.pkl
+🎯 Platt Scaling Ensemble Test Accuracy: 0.9612
+📙 Classification Report (Platt Scaling Ensemble):
+               precision    recall  f1-score   support
+
+         cry       0.97      0.99      0.98       118
+      scream       0.96      0.95      0.95       112
+      noncry       0.95      0.94      0.95       105
+
+    accuracy                           0.96       335
+   macro avg       0.96      0.96      0.96       335
+weighted avg       0.96      0.96      0.96       335
+
+📊 Confusion Matrix saved at: outputs\Platt Scaling Ensemble Confusion Matrix.png
+📊 ROC Curve saved at: outputs\Platt Scaling Ensemble ROC Curve_roc_curve.png
+
+
+
+### **Confusion Matrices**  
+![Weighted Ensemble Confusion Matrix](outputs/weighted_confusion_matrix.png)  
+
+### **ROC Curves**  
+![Weighted Ensemble ROC](outputs/weighted_roc_curve.png)  
+
+---
+
+## 💡 Future Work  
+💡 **Expand dataset** for better generalization.  
+💡 **Improve real-time inference** with optimized pipelines.  
+💡 **Deploy as a web or mobile application.**  
+💡 **Enhance ensemble models** with adaptive weighting.  
+💡 **Test additional deep learning models like Whisper or Hubert.**  
+
+---
+
+## 📚 License  
+This project is licensed under the **MIT License**.  
+See the [LICENSE](LICENSE) file for details.  
