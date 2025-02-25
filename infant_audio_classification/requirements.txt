@@ -1,0 +1,30 @@
+# Core Libraries
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+librosa
+soundfile
+pydub
+tqdm
+
+# Deep Learning & Machine Learning
+torch  # ⚠️ Install CUDA-enabled version manually (see below)
+torchaudio
+torchvision
+tensorflow
+tensorflow_hub
+transformers
+xgboost
+
+# Temporal for Deployment
+temporalio
+grpcio
+protobuf
+
+sounddevice
+pyaudio
+
+# ⚠️ Install CUDA-enabled PyTorch manually:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
