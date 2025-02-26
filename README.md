@@ -170,6 +170,7 @@ python inference.py --gui
 ✅ XGBoost model and test data loaded.
 🎯 XGBoost Test Accuracy: 0.8713
 📙 Classification Report (XGBoost):
+
                precision    recall  f1-score   support
 
          cry       0.89      0.86      0.87       125
@@ -177,14 +178,15 @@ python inference.py --gui
       noncry       0.94      0.87      0.90        97
 
     accuracy                           0.87       334
-   macro avg       0.88      0.87      0.87       334
-weighted avg       0.88      0.87      0.87       334
+    macro avg       0.88      0.87      0.87       334
+    weighted avg       0.88      0.87      0.87       334
 
 📊 Confusion Matrix saved at: outputs\XGBoost Confusion Matrix.png
 📊 ROC Curve saved at: outputs\XGBoost_roc_curve.png
 ✅ Wav2Vec2 model loaded.
 🎯 Wav2Vec2 Test Accuracy: 0.8358
 📙 Classification Report (Wav2Vec2):
+
                precision    recall  f1-score   support
 
          cry       0.88      0.84      0.86       118
@@ -192,14 +194,15 @@ weighted avg       0.88      0.87      0.87       334
       noncry       0.85      0.82      0.83       105
 
     accuracy                           0.84       335
-   macro avg       0.84      0.84      0.84       335
-weighted avg       0.84      0.84      0.84       335
+    macro avg       0.84      0.84      0.84       335
+    weighted avg       0.84      0.84      0.84       335
 
 📊 Confusion Matrix saved at: outputs\Wav2Vec2 Confusion Matrix.png
 📊 ROC Curve saved at: outputs\Wav2Vec2 ROC Curve_roc_curve.png
 ✅ weighted ensemble Model Saved at: models\ensemble\weighted ensemble.pkl
 🎯 Ensemble Model Test Accuracy: 0.9373
 📙 Classification Report (Ensemble Model):
+
                precision    recall  f1-score   support
 
          cry       0.98      0.93      0.96       118
@@ -207,14 +210,15 @@ weighted avg       0.84      0.84      0.84       335
       noncry       0.93      0.93      0.93       105
 
     accuracy                           0.94       335
-   macro avg       0.94      0.94      0.94       335
-weighted avg       0.94      0.94      0.94       335
+    macro avg       0.94      0.94      0.94       335
+    weighted avg       0.94      0.94      0.94       335
 
 📊 Confusion Matrix saved at: outputs\Ensemble Model Confusion Matrix.png
 📊 ROC Curve saved at: outputs\Ensemble Model ROC Curve_roc_curve.png
 ✅ stacking_ensemble Model Saved at: models\ensemble\stacking_ensemble.pkl
 🎯 Stacking Ensemble Test Accuracy: 0.9612
 📙 Classification Report (Stacking Ensemble):
+
                precision    recall  f1-score   support
 
          cry       0.97      0.99      0.98       118
@@ -222,8 +226,8 @@ weighted avg       0.94      0.94      0.94       335
       noncry       0.94      0.94      0.94       105
 
     accuracy                           0.96       335
-   macro avg       0.96      0.96      0.96       335
-weighted avg       0.96      0.96      0.96       335
+    macro avg       0.96      0.96      0.96       335
+    weighted avg       0.96      0.96      0.96       335
 
 📊 Confusion Matrix saved at: outputs\Stacking Ensemble Confusion Matrix.png
 📊 ROC Curve saved at: outputs\Stacking Ensemble ROC Curve_roc_curve.png
@@ -237,14 +241,15 @@ weighted avg       0.96      0.96      0.96       335
       noncry       0.98      0.78      0.87       105
 
     accuracy                           0.90       335
-   macro avg       0.90      0.89      0.89       335
-weighted avg       0.90      0.90      0.89       335
+    macro avg       0.90      0.89      0.89       335
+    weighted avg       0.90      0.90      0.89       335
 
 📊 Confusion Matrix saved at: outputs\Majority Voting Ensemble Confusion Matrix.png
 📊 ROC Curve saved at: outputs\Majority Voting Ensemble ROC Curve_roc_curve.png
 ✅ platt_scaling_ensemble Model Saved at: models\ensemble\platt_scaling_ensemble.pkl
 🎯 Platt Scaling Ensemble Test Accuracy: 0.9612
 📙 Classification Report (Platt Scaling Ensemble):
+
                precision    recall  f1-score   support
 
          cry       0.97      0.99      0.98       118
@@ -252,8 +257,8 @@ weighted avg       0.90      0.90      0.89       335
       noncry       0.95      0.94      0.95       105
 
     accuracy                           0.96       335
-   macro avg       0.96      0.96      0.96       335
-weighted avg       0.96      0.96      0.96       335
+    macro avg       0.96      0.96      0.96       335
+    weighted avg       0.96      0.96      0.96       335
 
 📊 Confusion Matrix saved at: outputs\Platt Scaling Ensemble Confusion Matrix.png
 📊 ROC Curve saved at: outputs\Platt Scaling Ensemble ROC Curve_roc_curve.png
